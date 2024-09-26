@@ -13,7 +13,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
             ? artistData?.data[artistId].attributes?.artwork?.url
                 .replace("{w}", "500")
                 .replace("{h}", "500")
-            : songData?.images?.coverart
+            : songData?.attributes?.artwork?.url
         }
         className="sm:w-48 w-28 sm:h-48 h-28 rounded-full object-cover border-2 shadow-xl shadow-black"
       />
@@ -22,11 +22,13 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
         <p className="font-bold sm:text-3xl text-xl text-white">
           {artistId
             ? artistData?.data[artistId].attributes?.name
-            : songData?.title}
+            : songData?.attributes?.name}
         </p>
         {artistId && (
           <Link to={`/artists/${songData?.artists[0]?.adamid}`}>
-            <p className="text-base text-gray-400 mt-2">{songData?.subtitle}</p>
+            <p className="text-base text-gray-400 mt-2">
+              {songData?.attributes?.artistName}
+            </p>
           </Link>
         )}
 

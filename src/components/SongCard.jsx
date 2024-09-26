@@ -26,7 +26,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
       <div className="relative w-full h-56 group">
         <div
           className={`absolute inset-0 justify-center items-center bg-black bg-opacity-50 group-hover:flex ${
-            activeSong?.title === song.title
+            activeSong?.attributes?.name === song.attributes?.name
               ? "flex bg-black bg-opacity-70"
               : "hidden"
           }`}
@@ -48,7 +48,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
 
       <div className="mt-4 flex flex-col">
         <p className="font-semibold text-lg text-white truncate">
-          <Link to={`/songs/${song?.key}`}>{song.title}</Link>
+          <Link to={`/songs/${song?.id}`}>{song.attributes?.name}</Link>
         </p>
         <p className="text-sm truncate text-gray-300 mt-1">
           <Link
@@ -58,7 +58,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
                 : "/top-artists"
             }
           >
-            {song.subtitle}
+            {song.attributes?.artistName}
           </Link>
         </p>
       </div>
