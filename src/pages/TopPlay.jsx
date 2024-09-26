@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode } from "swiper";
+import { FreeMode } from "swiper/modules";
 
 import PlayPause from "../components/PlayPause";
 import { playPause, setActiveSong } from "../redux/features/playerSlice";
@@ -144,8 +144,8 @@ const TopPlay = () => {
                 to={`/artists/${artist?.relationships?.artists?.data[0]?.id}`}
               >
                 <img
-                  src={artist?.artwork?.url || "default-image-url"}
-                  alt={artist?.attributes?.name || "Artist"}
+                  src={artist?.attributes.artwork?.url}
+                  alt={artist?.attributes?.name}
                   className="rounded-full w-full object-cover"
                 />
               </Link>

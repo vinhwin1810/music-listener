@@ -17,7 +17,7 @@ const CountryTracks = () => {
         "https://geo.ipify.org/api/v2/country,city?apiKey=at_fRMl1ty6N5mMXNHt8G1AtFv81dGGy&ipAddress=8.8.8.8"
       )
       .then((res) => setCountry(res?.data?.location.country))
-      .catch((err) => console.log(err))
+      .catch((err) => console.log("SAI CON ME NO ROI"))
       .finally(() => setLoading(false));
   }, [country]);
 
@@ -35,7 +35,7 @@ const CountryTracks = () => {
       <div className="flex flex-wrap sm:justify-start justify-center gap-8">
         {data?.map((song, i) => (
           <SongCard
-            key={song.key}
+            key={song.id}
             song={song}
             isPlaying={isPlaying}
             activeSong={activeSong}
