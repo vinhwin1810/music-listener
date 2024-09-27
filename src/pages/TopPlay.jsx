@@ -8,6 +8,7 @@ import { FreeMode } from "swiper/modules";
 import PlayPause from "../components/PlayPause";
 import { playPause, setActiveSong } from "../redux/features/playerSlice";
 import { useGetTopChartsQuery } from "../redux/services/shazamCore";
+import { Loader, Error } from "../components";
 
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -60,12 +61,14 @@ const TopChartCard = ({
 const TopPlay = () => {
   const dispatch = useDispatch();
   const { activeSong, isPlaying } = useSelector((state) => state.player);
-  const { data } = useGetTopChartsQuery();
+  const { data, isFetching, error } = useGetTopChartsQuery();
   const divRef = useRef(null);
 
   useEffect(() => {
-    divRef.current.scrollIntoView({ behavior: "smooth" });
-  });
+    if (!isFetching && divRef.current) {
+      divRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [isFetching]); // Only run the effect when fetching is done
 
   const topPlays = data?.slice(0, 5);
 

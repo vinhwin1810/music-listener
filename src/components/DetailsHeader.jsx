@@ -10,9 +10,9 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
         alt="profile"
         src={
           artistId
-            ? artistData?.data[artistId].attributes?.artwork?.url
-                .replace("{w}", "500")
-                .replace("{h}", "500")
+            ? artistData?.attributes?.artwork?.url // Access the first artist object in the data array
+                ?.replace("{w}", "500")
+                ?.replace("{h}", "500")
             : songData?.attributes?.artwork?.url
         }
         className="sm:w-48 w-28 sm:h-48 h-28 rounded-full object-cover border-2 shadow-xl shadow-black"
@@ -20,9 +20,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
 
       <div className="ml-5">
         <p className="font-bold sm:text-3xl text-xl text-white">
-          {artistId
-            ? artistData?.data[artistId].attributes?.name
-            : songData?.attributes?.name}
+          {artistId ? artistData?.attributes?.name : songData?.title}
         </p>
         {artistId && (
           <Link to={`/artists/${songData?.artists[0]?.adamid}`}>
@@ -34,7 +32,7 @@ const DetailsHeader = ({ artistId, artistData, songData }) => (
 
         <p className="text-base text-gray-400 mt-2">
           {artistId
-            ? artistData?.data[artistId].attributes?.genreNames[0]
+            ? artistData?.data[0]?.attributes?.genreNames?.[0] // Access the first genre
             : songData?.genres?.primary}
         </p>
       </div>
