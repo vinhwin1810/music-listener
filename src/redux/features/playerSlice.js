@@ -17,14 +17,11 @@ const playerSlice = createSlice({
       state.activeSong = action.payload.song;
 
       if (action.payload?.data?.tracks?.hits) {
-        // Map hits to extract the songs if nested within "track"
-        state.currentSongs = action.payload.data.tracks.hits.map(
-          (hit) => hit.track || hit
-        );
-      } else if (action.payload?.data?.tracks) {
-        state.currentSongs = action.payload.data.tracks;
+        state.currentSongs = action.payload.data.tracks.hits;
+      } else if (action.payload?.data?.properties) {
+        state.currentSongs = action.payload?.data?.tracks;
       } else {
-        state.currentSongs = action.payload.data || [];
+        state.currentSongs = action.payload.data;
       }
 
       state.currentIndex = action.payload.i;
@@ -32,19 +29,23 @@ const playerSlice = createSlice({
     },
 
     nextSong: (state, action) => {
-      const nextSong =
-        state.currentSongs[action.payload]?.track ||
-        state.currentSongs[action.payload];
-      state.activeSong = nextSong;
+      if (state.currentSongs[action.payload]?.track) {
+        state.activeSong = state.currentSongs[action.payload]?.track;
+      } else {
+        state.activeSong = state.currentSongs[action.payload];
+      }
+
       state.currentIndex = action.payload;
       state.isActive = true;
     },
 
     prevSong: (state, action) => {
-      const prevSong =
-        state.currentSongs[action.payload]?.track ||
-        state.currentSongs[action.payload];
-      state.activeSong = prevSong;
+      if (state.currentSongs[action.payload]?.track) {
+        state.activeSong = state.currentSongs[action.payload]?.track;
+      } else {
+        state.activeSong = state.currentSongs[action.payload];
+      }
+
       state.currentIndex = action.payload;
       state.isActive = true;
     },
